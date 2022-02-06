@@ -1,6 +1,7 @@
 import Directory from '../components/directory/directory-component';
 import './homepage.style.scss';
-const HomePage = () => {
+const HomePage = (props) => {
+    console.log(props);
     return (
         <div className="homepage">
             <h1>Welcome to my Homepage</h1>
