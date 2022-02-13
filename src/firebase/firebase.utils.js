@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, addDoc, collection, setDoc } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAwy7ajW5HkB2Ii8CYxlw1Aqgi6Yr_hEEk",
@@ -39,11 +39,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
             await setDoc(docRef, {
                 name, email, createdAt, ...additionalData
             });
-            // docRef = await addDoc(collection(db, 'users'), {
-            //     name, email, createdAt, ...additionalData
-            // })
         } catch (error) {
-            console.log("🚀 ~ file: firebase.utils.js ~ line 43 ~ createUserProfileDocument ~ error", error)
+            console.error("🚀 ~ file: firebase.utils.js ~ line 43 ~ createUserProfileDocument ~ error", error)
 
         }
     }
@@ -73,25 +70,4 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider)
 
 export const customCreateUserWithEmailAndPassword = (auth, email, password) => createUserWithEmailAndPassword(auth, email, password)
 
-
-// import { initializeApp, auth, firestore, provider } from "firebase/app";
-// // import { getAnalytics } from "firebase/analytics";
-// import 'firebase/auth';
-// import 'firebase/firestore';
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
-
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// // Initialize Firebase
-// // const app = firebase.initializeApp(firebaseConfig);
-// // const analytics = getAnalytics(app);
-
-// export const customAuth = auth();
-// export const customFirestore = firestore();
-
-// const customProvider = new provider.GoogleAuthProvider();
-// customProvider.setCustomParameters({ prompt: 'select_account' });
-// export const signInWithGoogle = () => auth.signInWithPopUp(customProvider);
-
-// export default firebase;
+export const customSignInWithEmailAndPassword = (auth, email, password) => signInWithEmailAndPassword(auth, email, password);
