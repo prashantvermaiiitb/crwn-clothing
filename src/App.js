@@ -7,7 +7,8 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
-import { auth } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
+import { getDoc } from 'firebase/firestore';
 
 class App extends Component {
 
@@ -21,9 +22,32 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // this.setState({ currentUser: user });
+
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          // console.log("🚀 ~ file: App.js ~ line 32 ~ App ~ componentDidMount ~ docSnap", docSnap)
+          const user = docSnap.data();
+          // console.log("🚀 ~ file: App.js ~ line 33 ~ App ~ componentDidMount ~ user ", user);
+          this.setState({
+            currentUser: {
+              id: docSnap.id,
+              ...user
+            }
+          }, () => console.log('setting the user and printing this ', this.state))
+        } else {
+          console.log('Data does not exist here ..');
+          this.setState({ currentUser: userAuth }, () => console.log('there is no data in firebase that has logged in ...'));
+        }
+      }
+      else {
+        //todo : have put this in else though not in tutorials
+        // this.setState({ currentUser: userAuth });
+        this.setState({ currentUser: userAuth }, () => console.log('there is no user that has logged in ...'));
+      }
     });
   }
 
@@ -34,12 +58,12 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <Header currentUser={this.state.currentUser}/>
-            <Routes>
-              <Route exact path='/' element={<HomePage />} />
-              <Route path='/shop' element={<ShopPage />} />
-              <Route path='/signin' element={<SignInAndSignUpComponent />} />
-            </Routes>
+          <Header currentUser={this.state.currentUser} />
+          <Routes>
+            <Route exact path='/' element={<HomePage />} />
+            <Route path='/shop' element={<ShopPage />} />
+            <Route path='/signin' element={<SignInAndSignUpComponent />} />
+          </Routes>
         </BrowserRouter>
       </div>
     );

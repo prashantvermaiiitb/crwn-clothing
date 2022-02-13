@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore, doc, getDoc, addDoc, collection, setDoc } from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAwy7ajW5HkB2Ii8CYxlw1Aqgi6Yr_hEEk",
@@ -22,6 +23,34 @@ provider.setCustomParameters({
     'login_hint': 'user@example.com'
 });
 
+export const db = getFirestore(); // getting connection to DB
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    // console.log("🚀 ~ file: firebase.utils.js ~ line 29 ~ createUserProfileDocument ~ userAuth", userAuth)
+    if (!userAuth) return;
+    const docRef = doc(db, 'users', userAuth.uid); //connecting to users collection & then document => document reference
+    const snapshot = await getDoc(docRef);
+    // console.log("🚀 ~ file: firebase.utils.js ~ line 32 ~ createUserProfileDocument ~ snapshot", snapshot)
+
+    if (!snapshot.exists()) {
+        const { displayName: name, email } = userAuth;
+        const createdAt = new Date();
+        try {
+            await setDoc(docRef, {
+                name, email, createdAt, ...additionalData
+            });
+            // docRef = await addDoc(collection(db, 'users'), {
+            //     name, email, createdAt, ...additionalData
+            // })
+        } catch (error) {
+            console.log("🚀 ~ file: firebase.utils.js ~ line 43 ~ createUserProfileDocument ~ error", error)
+
+        }
+    }
+    // console.log("🚀 ~ file: firebase.utils.js ~ line 48 ~ createUserProfileDocument ~ docRef", docRef)
+    return docRef;
+    // getDoc(docRef).then(response => console.log(response));
+}
 
 export const signInWithGoogle = () => signInWithPopup(auth, provider)
     .then((result) => {
@@ -41,6 +70,8 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider)
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
     });
+
+export const customCreateUserWithEmailAndPassword = (auth, email, password) => createUserWithEmailAndPassword(auth, email, password)
 
 
 // import { initializeApp, auth, firestore, provider } from "firebase/app";
