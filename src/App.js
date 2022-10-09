@@ -57,14 +57,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <Header currentUser={this.state.currentUser} />
-          <Routes>
-            <Route exact path='/' element={<HomePage />} />
-            <Route path='/shop' element={<ShopPage />} />
-            <Route path='/signin' element={<SignInAndSignUpComponent />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Header currentUser={this.state.currentUser}  />}>
+            <Route index element={<HomePage />} />
+            <Route path='shop' element={<ShopPage />} />
+            <Route path='signin' element={<SignInAndSignUpComponent />} />
+          </Route>
+        </Routes>
       </div>
     );
   }
