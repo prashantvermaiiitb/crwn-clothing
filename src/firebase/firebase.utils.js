@@ -3,6 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, addDoc, collection, setDoc } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
+
+//https://www.geeksforgeeks.org/firebase-integration-with-web/
+// https://www.educative.io/answers/firebase-as-simple-database-to-react-app
 const firebaseConfig = {
     apiKey: "AIzaSyAwy7ajW5HkB2Ii8CYxlw1Aqgi6Yr_hEEk",
     authDomain: "crwn-db-b9805.firebaseapp.com",
@@ -20,7 +23,8 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 export const auth = getAuth();
 auth.languageCode = 'it';
 provider.setCustomParameters({
-    'login_hint': 'user@example.com'
+    'login_hint': 'user@example.com',
+    'prompt': 'select_account'
 });
 
 export const db = getFirestore(); // getting connection to DB
@@ -54,8 +58,10 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider)
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
+        console.log("🚀 ~ file: firebase.utils.js:58 ~ .then ~ token:", token)
         // The signed-in user info.
         const user = result.user;
+        console.log("🚀 ~ file: firebase.utils.js:60 ~ .then ~ user:", user)
         // ...
     }).catch((error) => {
         // Handle Errors here.

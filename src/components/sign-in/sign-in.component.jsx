@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import CustomButton from '../custom-button/custom-button.component';
 import FormInput from '../form-input/form-input.component';
 import './sign-in.styles.scss';
+import { UserContext } from '../context/user.context'
 
 import { auth, signInWithGoogle, customSignInWithEmailAndPassword } from '../../firebase/firebase.utils';
 
 class SignIn extends Component {
+    static contextType = UserContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +19,11 @@ class SignIn extends Component {
         event.preventDefault();
         const { email, password } = this.state;
         try {
-            await customSignInWithEmailAndPassword(auth,email,password);
+            const { user } = await customSignInWithEmailAndPassword(auth, email, password);
+            console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user)
             this.setState({ email: '', password: '' });
+            const { setCurrentUser } = this.context;
+            setCurrentUser(user);
         } catch (error) {
             console.error(error);
         }
