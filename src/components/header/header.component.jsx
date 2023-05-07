@@ -9,7 +9,7 @@ import { UserContext } from '../context/user.context';
 const PrintUserContext = () => {
     const { currentUser } = useContext(UserContext);
     console.log("🚀 ~ file: header.component.jsx:11 ~ PrintUserContext ~ currentUser:", currentUser)
-    return <h1>Reading User from Context:{!!currentUser && currentUser.displayName}</h1>
+    return <h1>Reading User from Context:{!!currentUser && currentUser.email}</h1>
 }
 
 const Header = ({ currentUser }) => {

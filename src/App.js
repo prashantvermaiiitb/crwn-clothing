@@ -9,9 +9,10 @@ import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-a
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { getDoc } from 'firebase/firestore';
+import { UserContext } from './components/context/user.context';
 
 class App extends Component {
-
+  static contextType = UserContext
   constructor() {
     super();
     this.state = {
@@ -24,7 +25,6 @@ class App extends Component {
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       // this.setState({ currentUser: user });
-
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         const docSnap = await getDoc(userRef);
@@ -38,6 +38,7 @@ class App extends Component {
               ...user
             }
           }, () => console.log('setting the user and printing this ', this.state))
+
         } else {
           console.log('Data does not exist here ..');
           this.setState({ currentUser: userAuth }, () => console.log('there is no data in firebase that has logged in ...'));
@@ -48,6 +49,9 @@ class App extends Component {
         // this.setState({ currentUser: userAuth });
         this.setState({ currentUser: userAuth }, () => console.log('there is no user that has logged in ...'));
       }
+      const { setCurrentUser } = this.context;
+      setCurrentUser(this.state.currentUser);
+
     });
   }
 
@@ -58,7 +62,7 @@ class App extends Component {
     return (
       <div className="App">
         <Routes>
-          <Route path='/' element={<Header currentUser={this.state.currentUser}  />}>
+          <Route path='/' element={<Header currentUser={this.state.currentUser} />}>
             <Route index element={<HomePage />} />
             <Route path='shop' element={<ShopPage />} />
             <Route path='signin' element={<SignInAndSignUpComponent />} />
