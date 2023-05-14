@@ -21,10 +21,10 @@ const SignUp = () => {
         }
         try {
             const { user } = await customCreateUserWithEmailAndPassword(auth, email, password); // will return userAuth object which is on key user.
-            // todo will be moved to UserContext useEffect()
-            // await createUserProfileDocument(user, {
-            //     name: displayName
-            // });
+            // we will be needing displayName, hence we need to keep this.
+            await createUserProfileDocument(user, {
+                name: displayName
+            });
             // clear our form
             setDisplayName('')
             setEmail('')
