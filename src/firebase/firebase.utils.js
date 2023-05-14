@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, addDoc, collection, setDoc } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 
 //https://www.geeksforgeeks.org/firebase-integration-with-web/
@@ -61,7 +61,8 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider)
         console.log("🚀 ~ file: firebase.utils.js:58 ~ .then ~ token:", token)
         // The signed-in user info.
         const user = result.user;
-        console.log("🚀 ~ file: firebase.utils.js:60 ~ .then ~ user:", user)
+        console.log("🚀 ~ file: firebase.utils.js:60 ~ .then ~ user:", user);
+        // todo we have not set the user in the context ???     
         // ...
     }).catch((error) => {
         // Handle Errors here.
@@ -77,3 +78,10 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider)
 export const customCreateUserWithEmailAndPassword = (auth, email, password) => createUserWithEmailAndPassword(auth, email, password)
 
 export const customSignInWithEmailAndPassword = (auth, email, password) => signInWithEmailAndPassword(auth, email, password);
+
+/**
+ * whenever user login or logout this authentication listener will be changed
+ * @param {*} callback 
+ * @returns 
+ */
+export const onAuthenticationStatusChange = (callback) => callback && onAuthStateChanged(auth, callback)

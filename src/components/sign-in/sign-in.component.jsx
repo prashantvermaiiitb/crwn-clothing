@@ -5,13 +5,20 @@ import './sign-in.styles.scss';
 import { UserContext } from '../context/user.context'
 
 import { auth, signInWithGoogle, customSignInWithEmailAndPassword } from '../../firebase/firebase.utils';
-
+const defaultFormFields = {
+    email: '', password: ''
+}
 const SignIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setCurrentUser } = useContext(UserContext);
+    // const [formFields, setFormFields] = useState(defaultFormFields);
+    // const { email, password } = formFields;
+    // const { setCurrentUser } = useContext(UserContext);
 
+    // const resetFormFields = () => {
+    //     setFormFields(defaultFormFields);
+    // }
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -19,12 +26,13 @@ const SignIn = () => {
             console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user);
             setEmail('');
             setPassword('');
-            setCurrentUser(user);
+            // setFormFields(defaultFormFields);
+            // setCurrentUser(user);
         } catch (error) {
             console.error(error);
         }
     }
-    
+
     return (
         <div className='sign-in'>
             <h2>I already have an account</h2>

@@ -26,9 +26,9 @@ class SignUp extends Component {
         }
         try {
             const { user } = await customCreateUserWithEmailAndPassword(auth, email, password); // will return userAuth object which is on key user.
-            await createUserProfileDocument(user, {
-                name:displayName
-            });
+            // await createUserProfileDocument(user, {
+            //     name:displayName
+            // });
             // clear our form
             this.setState({
                 displayName: '', email: '', password: '', confirmPassword: ''

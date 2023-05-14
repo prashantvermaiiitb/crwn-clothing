@@ -10,7 +10,7 @@ const SignIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setCurrentUser } = useContext(UserContext);
+    // const { setCurrentUser } = useContext(UserContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -19,7 +19,7 @@ const SignIn = () => {
             console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user);
             setEmail('');
             setPassword('');
-            setCurrentUser(user);
+            // setCurrentUser(user);
         } catch (error) {
             console.error(error);
         }
@@ -60,8 +60,8 @@ class SignInCC extends Component {
             const { user } = await customSignInWithEmailAndPassword(auth, email, password);
             console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user)
             this.setState({ email: '', password: '' });
-            const { setCurrentUser } = this.context;
-            setCurrentUser(user);
+            // const { setCurrentUser } = this.context;
+            // setCurrentUser(user);
         } catch (error) {
             console.error(error);
         }

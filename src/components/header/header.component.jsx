@@ -12,7 +12,11 @@ const PrintUserContext = () => {
     return <h1>Reading User from Context:{!!currentUser && currentUser.email}</h1>
 }
 
-const Header = ({ currentUser }) => {
+// !todo we should see how we can use context here rather than passing currentUser from the App.js
+// const Header = ({ currentUser }) => {
+const Header = () => {
+    const { currentUser } = useContext(UserContext)
+
     return (
         <>
             <div className='header'>

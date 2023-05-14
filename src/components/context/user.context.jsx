@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { createUserProfileDocument, onAuthenticationStatusChange } from "../../firebase/firebase.utils";
 
 export const UserContext = createContext({
     /**
@@ -22,6 +23,17 @@ export const UserProvider = ({ children }) => {
      */
     const [currentUser, setCurrentUser] = useState(null);
     const value = { currentUser, setCurrentUser };
+    useEffect(() => {
+        const unsubscribe = onAuthenticationStatusChange((user) => {
+            if(user){
+                createUserProfileDocument(user);
+            }
+            // we will be getting either user object or null 
+            console.log("🚀 ~ file: user.context.jsx:28 ~ unsubscribe ~ user:", user)
+            setCurrentUser(user);
+        });
+        return unsubscribe;
+    }, []);
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
