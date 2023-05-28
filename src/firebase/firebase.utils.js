@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, addDoc, collection, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, addDoc, collection, writeBatch, setDoc, query, getDocs } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 
@@ -85,3 +85,58 @@ export const customSignInWithEmailAndPassword = (auth, email, password) => signI
  * @returns 
  */
 export const onAuthenticationStatusChange = (callback) => callback && onAuthStateChanged(auth, callback)
+
+/**
+ * method for uploading the shop_data into firebase 
+ */
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    /**
+     * get the reference of this collection in DB 
+     * Collectionkey is the name of the table 
+     */
+    const collectionRef = collection(db, collectionKey);
+    /**
+     * get the batch instance for this DB so that different reads, writes and sets can be used on it.
+     */
+    const batch = writeBatch(db);
+    /**
+     * For each of the objects in the shop_data
+     * set the key and add the documents in the table
+     */
+    objectsToAdd.forEach(object => {
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        batch.set(docRef, object);
+    });
+    /**
+     * Commit the batch with all the data.
+     */
+    await batch.commit();
+    console.log('done DB entry');
+};
+
+/**
+ * Categories map from the firebase
+ */
+export const getCategoriesAndDocuments = async () => {
+    /**
+     * get hold of categories collection in DB
+     */
+    const collectionRef = collection(db, 'categories');
+    // Allow to query on this collection reference.
+    const q = query(collectionRef);
+    /**
+     * get the Documents in the collection in form snapshots. 
+     */
+    const querySnapShot = await getDocs(q);
+    /**
+     * Create the JSON object that we used in the start
+     * hats : {title:'hats',items:[{id,title,imageUrl,price},{...}]}
+     */
+    const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
+        const { title, items } = docSnapShot.data(); // regain data in the document 
+        acc[title.toLowerCase()] = items;
+        return acc;
+    }, {});
+    // return the category map once that is created.
+    return categoryMap;
+};
