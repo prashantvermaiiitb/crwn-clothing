@@ -6,6 +6,7 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import './App.css';
+import Checkout from './pages/checkout/checkout-component';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path='shop' element={<ShopPage />} />
           <Route path='signin' element={<SignInAndSignUpComponent />} />
+          <Route path='checkout' element={<Checkout />} />
         </Route>
       </Routes>
     </div>
