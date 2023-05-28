@@ -5,6 +5,10 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { auth } from '../../firebase/firebase.utils'
 import { UserContext } from '../context/user.context';
+import { CartContext } from '../context/cart.context';
+
+import { CartIcon } from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 const PrintUserContext = () => {
     const { currentUser } = useContext(UserContext);
@@ -15,12 +19,13 @@ const PrintUserContext = () => {
 // !todo we should see how we can use context here rather than passing currentUser from the App.js
 // const Header = ({ currentUser }) => {
 const Header = () => {
-    const { currentUser } = useContext(UserContext)
+    const { currentUser } = useContext(UserContext);
+    const { isCartOpen } = useContext(CartContext);
 
     return (
         <>
             <div className='header'>
-                <PrintUserContext />
+                {/*<PrintUserContext />*/}
                 <Link to="/" className='logo-container'>
                     <Logo className='logo' />
                 </Link>
@@ -30,7 +35,9 @@ const Header = () => {
                     {
                         currentUser ? <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div> : <Link className='option' to="/signin">SIGN IN</Link>
                     }
+                    <CartIcon />
                 </div>
+                {isCartOpen && <CartDropdown />}
             </div>
             {/** 
                     This outlet will be rendering the child components passed in the Header component
