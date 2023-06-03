@@ -43,11 +43,13 @@ export const GoogleButton = styled(BaseButton)`
  * Inverted button extending base button
  */
 export const InvertedButton = styled(BaseButton)`
-    background-color: #4285f4;
-    color:white;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
 
-    &:hover{
-      background-color: #357ae8;
+    &:hover {
+      background-color: black;
+      color: white;
       border: none;
     }
 `;
