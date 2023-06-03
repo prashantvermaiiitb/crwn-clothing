@@ -5,6 +5,7 @@ import './sign-in.styles.scss';
 import { UserContext } from '../context/user.context'
 
 import { auth, signInWithGoogle, customSignInWithEmailAndPassword } from '../../firebase/firebase.utils';
+import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 const defaultFormFields = {
     email: '', password: ''
 }
@@ -44,7 +45,7 @@ const SignIn = () => {
                     label="password" name="password" required type="password" value={password} handleChange={(event) => setPassword(event.target.value)} />
                 <div className='buttons'>
                     <CustomButton type="submit"> Sign In </CustomButton>
-                    <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn> Sign In With Google</CustomButton>
+                    <CustomButton type="button" onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}> Sign In With Google</CustomButton>
                 </div>
             </form>
         </div>

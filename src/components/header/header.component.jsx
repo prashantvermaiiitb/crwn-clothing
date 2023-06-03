@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import './header.styles.scss';
+// import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { auth } from '../../firebase/firebase.utils'
@@ -9,6 +9,8 @@ import { CartContext } from '../context/cart.context';
 
 import { CartIcon } from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
+import { HeaderContainer, LogoContainer, OptionsContainer, Options } from './header.styles';
 
 const PrintUserContext = () => {
     const { currentUser } = useContext(UserContext);
@@ -24,21 +26,21 @@ const Header = () => {
 
     return (
         <>
-            <div className='header'>
+            <HeaderContainer>
                 {/*<PrintUserContext />*/}
-                <Link to="/" className='logo-container'>
+                <LogoContainer to="/" >
                     <Logo className='logo' />
-                </Link>
-                <div className='options'>
-                    <Link className='option' to="/shop">SHOP</Link>
-                    <Link className='option' to="/contact">CONTACT</Link>
+                </LogoContainer>
+                <OptionsContainer>
+                    <Options to="/shop">SHOP</Options>
+                    <Options to="/contact">CONTACT</Options>
                     {
-                        currentUser ? <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div> : <Link className='option' to="/signin">SIGN IN</Link>
+                        currentUser ? <Options as='span' onClick={() => auth.signOut()}>SIGN OUT</Options> : <Options to="/signin">SIGN IN</Options>
                     }
                     <CartIcon />
-                </div>
+                </OptionsContainer>
                 {isCartOpen && <CartDropdown />}
-            </div>
+            </HeaderContainer>
             {/** 
                     This outlet will be rendering the child components passed in the Header component
                     This is similar to this.props.children that we used to do earlier.
