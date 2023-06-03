@@ -34,7 +34,7 @@ const CategoriesProvider = ({ children }) => {
     useEffect(() => {
         const getCategoriesMap = async () => {
             const categoriesMap = await getCategoriesAndDocuments();
-            console.log("🚀 ~ file: categories.context.jsx:31 ~ getCategoriesMap ~ categoriesMap:", categoriesMap)
+            // console.log("🚀 ~ file: categories.context.jsx:31 ~ getCategoriesMap ~ categoriesMap:", categoriesMap)
             setCategoriesMap(categoriesMap);
         }
         getCategoriesMap();

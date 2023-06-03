@@ -1,16 +1,19 @@
-import './menu-item.styles.scss'
+import { MenuItemContainer, BackgroundImage, Content } from './menu-item.styles';
+// import './menu-item.styles.scss'
 import { useNavigate } from "react-router-dom"
 
-const MenuItem = ({ title, subtitle, imageUrl, size, linkUrl }) => {
+const MenuItem = ({ title, subtitle, imageUrl, size, route }) => {
     const navigate = useNavigate();
+    const onNavigateHandler = e => navigate(route);
     return (
-        <div className={`menu-item${size ? ' ' + size : ''}`}>
-            <div className='background-image' style={{ backgroundImage: `url(${imageUrl})` }}></div>
-            <div className="content" onClick={e => navigate(linkUrl)}>
+        // <div className={`menu-item${size ? ' ' + size : ''}`}>
+        <MenuItemContainer size={size || ''}>
+            <BackgroundImage imageUrl={imageUrl}></BackgroundImage>
+            <Content onClick={onNavigateHandler}>
                 <h1 className="title">{title.toUpperCase()}</h1>
                 <span className="subtitle">{subtitle.toUpperCase()}</span>
-            </div>
-        </div>
+            </Content>
+        </MenuItemContainer>
     );
 }
 

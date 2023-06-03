@@ -8,6 +8,9 @@ import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-a
 import './App.css';
 import Checkout from './pages/checkout/checkout-component';
 
+// https://github.com/sass/node-sass/issues/2536
+//npm rebuild node-sass 
+
 const App = () => {
   return (
     <div className="App">
