@@ -1,27 +1,27 @@
 import { useState, createContext, useEffect } from "react";
 
-const addCartItemversion1 = (cartItems, productToAdd) => {
-    const index = cartItems.findIndex(cartItem => cartItem.id === productToAdd.id);
-    if (index !== -1) {
-        cartItems[index].quantity++;
-    } else {
-        cartItems.push({ ...productToAdd, quantity: 1 });
-    }
-    return [...cartItems];
-}
+// const addCartItemversion1 = (cartItems, productToAdd) => {
+//     const index = cartItems.findIndex(cartItem => cartItem.id === productToAdd.id);
+//     if (index !== -1) {
+//         cartItems[index].quantity++;
+//     } else {
+//         cartItems.push({ ...productToAdd, quantity: 1 });
+//     }
+//     return [...cartItems];
+// }
 
-const removeCartItemversion1 = (cartItems, productToRemove) => {
-    const index = cartItems.findIndex(cartItem => cartItem.id === productToRemove.id);
-    if (index !== -1) {
-        const newQuantity = productToRemove.quantity - 1;
-        if (newQuantity === 0) {
-            cartItems.splice(index, 1);
-        } else {
-            cartItems[index] = { ...productToRemove, quantity: productToRemove.quantity - 1 };
-        }
-    }
-    return [...cartItems];
-}
+// const removeCartItemversion1 = (cartItems, productToRemove) => {
+//     const index = cartItems.findIndex(cartItem => cartItem.id === productToRemove.id);
+//     if (index !== -1) {
+//         const newQuantity = productToRemove.quantity - 1;
+//         if (newQuantity === 0) {
+//             cartItems.splice(index, 1);
+//         } else {
+//             cartItems[index] = { ...productToRemove, quantity: productToRemove.quantity - 1 };
+//         }
+//     }
+//     return [...cartItems];
+// }
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
     const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToRemove.id);

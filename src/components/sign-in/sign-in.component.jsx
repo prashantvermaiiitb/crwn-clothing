@@ -1,14 +1,15 @@
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
+// import React, { Component, useContext, useEffect, useState } from 'react';
 import CustomButton from '../custom-button/custom-button.component';
 import FormInput from '../form-input/form-input.component';
 import './sign-in.styles.scss';
-import { UserContext } from '../context/user.context'
+// import { UserContext } from '../context/user.context'
 
 import { auth, signInWithGoogle, customSignInWithEmailAndPassword } from '../../firebase/firebase.utils';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
-const defaultFormFields = {
-    email: '', password: ''
-}
+// const defaultFormFields = {
+//     email: '', password: ''
+// }
 const SignIn = () => {
 
     const [email, setEmail] = useState('');

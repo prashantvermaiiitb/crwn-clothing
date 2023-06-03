@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 // import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import { auth } from '../../firebase/firebase.utils'
+import { auth } from '../../firebase/firebase.utils';
 import { UserContext } from '../context/user.context';
 import { CartContext } from '../context/cart.context';
 
@@ -12,11 +12,11 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import { HeaderContainer, LogoContainer, OptionsContainer, Options } from './header.styles';
 
-const PrintUserContext = () => {
-    const { currentUser } = useContext(UserContext);
-    console.log("🚀 ~ file: header.component.jsx:11 ~ PrintUserContext ~ currentUser:", currentUser)
-    return <h1>Reading User from Context:{!!currentUser && currentUser.email}</h1>
-}
+// const PrintUserContext = () => {
+//     const { currentUser } = useContext(UserContext);
+//     console.log("🚀 ~ file: header.component.jsx:11 ~ PrintUserContext ~ currentUser:", currentUser)
+//     return <h1>Reading User from Context:{!!currentUser && currentUser.email}</h1>
+// }
 
 // !todo we should see how we can use context here rather than passing currentUser from the App.js
 // const Header = ({ currentUser }) => {
