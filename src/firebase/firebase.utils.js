@@ -66,13 +66,14 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider)
         // todo we have not set the user in the context ???     
         // ...
     }).catch((error) => {
+        console.log("🚀 ~ file: firebase.utils.js:69 ~ .then ~ error:", error)
         // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
         // The email of the user's account used.
-        const email = error.email;
+        // const email = error.email;
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
     });
 
