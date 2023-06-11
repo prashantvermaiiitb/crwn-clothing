@@ -1,50 +1,52 @@
-import { createContext, useEffect, useState } from "react";
-import { getCategoriesAndDocuments } from "../../firebase/firebase.utils.js";
+// !Un-used file
 
-export const CategoriesContext = createContext({
-    categoriesMap: {}
-});
+// import { createContext, useEffect, useState } from "react";
+// import { getCategoriesAndDocuments } from "../../firebase/firebase.utils.js";
 
-/**
- * Categories context provider
- * @param {*} param0 
- * @returns 
- */
-const CategoriesProvider = ({ children }) => {
-    const [categoriesMap, setCategoriesMap] = useState({});
-    // console.log("🚀 ~ file: categories.context.jsx:11 ~ ProductsProvider ~ products:", products)
+// export const CategoriesContext = createContext({
+//     categoriesMap: {}
+// });
 
-    // making value as JSON object will ease the destructuring in usage where product context was used.
-    const value = { categoriesMap };
+// /**
+//  * Categories context provider
+//  * @param {*} param0 
+//  * @returns 
+//  */
+// const CategoriesProvider = ({ children }) => {
+//     const [categoriesMap, setCategoriesMap] = useState({});
+//     // console.log("🚀 ~ file: categories.context.jsx:11 ~ ProductsProvider ~ products:", products)
 
-    /**
-     * ! will be loaded once the component is loaded.
-     * !This will make entry in the database.
-     * 
-     * !This will be commented after first execution because we do not wnat that to run 
-     * !again and again.
-     */
-    // useEffect(() => {
-    //     addCollectionAndDocuments('categories', SHOP_DATA);
-    // }, []);
+//     // making value as JSON object will ease the destructuring in usage where product context was used.
+//     const value = { categoriesMap };
 
-    /**
-     * Fetching categories data from the firestore and making proper context.
-     */
-    useEffect(() => {
-        const getCategoriesMap = async () => {
-            const categoriesMap = await getCategoriesAndDocuments();
-            // console.log("🚀 ~ file: categories.context.jsx:31 ~ getCategoriesMap ~ categoriesMap:", categoriesMap)
-            setCategoriesMap(categoriesMap);
-        }
-        getCategoriesMap();
-    }, []);
+//     /**
+//      * ! will be loaded once the component is loaded.
+//      * !This will make entry in the database.
+//      * 
+//      * !This will be commented after first execution because we do not wnat that to run 
+//      * !again and again.
+//      */
+//     // useEffect(() => {
+//     //     addCollectionAndDocuments('categories', SHOP_DATA);
+//     // }, []);
 
-    return (
-        <CategoriesContext.Provider value={value}>
-            {children}
-        </CategoriesContext.Provider>
-    )
-}
+//     /**
+//      * Fetching categories data from the firestore and making proper context.
+//      */
+//     useEffect(() => {
+//         const getCategoriesMap = async () => {
+//             const categoriesMap = await getCategoriesAndDocuments();
+//             // console.log("🚀 ~ file: categories.context.jsx:31 ~ getCategoriesMap ~ categoriesMap:", categoriesMap)
+//             setCategoriesMap(categoriesMap);
+//         }
+//         getCategoriesMap();
+//     }, []);
 
-export default CategoriesProvider;
+//     return (
+//         <CategoriesContext.Provider value={value}>
+//             {children}
+//         </CategoriesContext.Provider>
+//     )
+// }
+
+// export default CategoriesProvider;

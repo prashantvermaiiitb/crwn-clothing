@@ -4,11 +4,14 @@ import { useContext, useEffect, useState } from 'react';
 import { CategoriesContext } from '../../components/context/categories.context';
 import { ProductCard } from '../../components/product-card/product-card.component';
 import { Fragment } from 'react/cjs/react.production.min';
+import { useSelector } from 'react-redux';
+import { getCategoriesMap } from '../../store/categories/category.selector';
 
 const Category = () => {
 
     const { category } = useParams();// for getting category parameter from request object 
-    const { categoriesMap } = useContext(CategoriesContext); // extract the categories Mao from the context 
+    // const { categoriesMap } = useContext(CategoriesContext); // extract the categories Mao from the context 
+    const categoriesMap = useSelector(getCategoriesMap);
 
     // To save re-rendering  of the component using useState & useEffect
     // having default value of products as undefined from categoriesMap[categories] 

@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
-import { CategoriesContext } from '../../components/context/categories.context';
+import React from 'react';
 import CategoryPreview from '../../components/category-preview/category-preview.component';
 import { Fragment } from 'react/cjs/react.production.min';
+import { useSelector } from 'react-redux';
+import { getCategoriesMap } from '../../store/categories/category.selector';
 
 const CategoriesPreview = () => {
-
-    const { categoriesMap } = useContext(CategoriesContext);
+    // todo extracting categories Map from the state
+    const categoriesMap = useSelector(getCategoriesMap);
     const categoryCount = Object.keys(categoriesMap).length;
     return (
         categoryCount === 0 ? <p>loading data....</p> :

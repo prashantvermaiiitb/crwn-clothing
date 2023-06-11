@@ -4,14 +4,14 @@ import { Outlet } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { auth } from '../../firebase/firebase.utils';
-import { UserContext } from '../context/user.context';
 import { CartContext } from '../context/cart.context';
 
 import { CartIcon } from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import { HeaderContainer, LogoContainer, OptionsContainer, Options } from './header.styles';
-
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../store/user/user.selector.js'
 // const PrintUserContext = () => {
 //     const { currentUser } = useContext(UserContext);
 //     console.log("🚀 ~ file: header.component.jsx:11 ~ PrintUserContext ~ currentUser:", currentUser)
@@ -21,7 +21,12 @@ import { HeaderContainer, LogoContainer, OptionsContainer, Options } from './hea
 // !todo we should see how we can use context here rather than passing currentUser from the App.js
 // const Header = ({ currentUser }) => {
 const Header = () => {
-    const { currentUser } = useContext(UserContext);
+    /**
+     * selector function updates whenever the state object changes.
+     * so in sign-in and sign-out in both cases this will work.
+     * useSelector will directly work on the state .. what about mapstattoprops ???
+     */
+    const currentUser = useSelector(currentUserSelector);
     const { isCartOpen } = useContext(CartContext);
 
     return (
