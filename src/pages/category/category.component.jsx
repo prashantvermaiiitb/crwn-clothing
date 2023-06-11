@@ -1,16 +1,17 @@
-import { useParams } from 'react-router-dom';
-import './category.styles.scss'
-import { useContext, useEffect, useState } from 'react';
-import { CategoriesContext } from '../../components/context/categories.context';
-import { ProductCard } from '../../components/product-card/product-card.component';
-import { Fragment } from 'react/cjs/react.production.min';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { Fragment } from 'react/cjs/react.production.min';
+import { ProductCard } from '../../components/product-card/product-card.component';
 import { getCategoriesMap } from '../../store/categories/category.selector';
+import './category.styles.scss';
 
 const Category = () => {
 
     const { category } = useParams();// for getting category parameter from request object 
     // const { categoriesMap } = useContext(CategoriesContext); // extract the categories Mao from the context 
+    // ! useSelector is getting hooked to the Redux store... 
+    // ! so everytime Store is updated then this re-render happens...
     const categoriesMap = useSelector(getCategoriesMap);
 
     // To save re-rendering  of the component using useState & useEffect

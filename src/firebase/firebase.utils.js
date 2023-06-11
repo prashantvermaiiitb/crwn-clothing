@@ -130,15 +130,17 @@ export const getCategoriesAndDocuments = async () => {
      * get the Documents in the collection in form snapshots. 
      */
     const querySnapShot = await getDocs(q);
+    const categoryMap = querySnapShot.docs.map(docSnapShot => docSnapShot.data());
     /**
      * Create the JSON object that we used in the start
      * hats : {title:'hats',items:[{id,title,imageUrl,price},{...}]}
      */
-    const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
-        const { title, items } = docSnapShot.data(); // regain data in the document 
-        acc[title.toLowerCase()] = items;
-        return acc;
-    }, {});
+    //! commenting out because we are planing to return most basic form of Data.
+    // const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
+    //     const { title, items } = docSnapShot.data(); // regain data in the document 
+    //     acc[title.toLowerCase()] = items;
+    //     return acc;
+    // }, {});
     // return the category map once that is created.
     return categoryMap;
 };

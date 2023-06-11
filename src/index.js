@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import CategoriesProvider from './components/context/categories.context';
-import { CartProvider } from './components/context/cart.context';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { CartProvider } from './components/context/cart.context';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 import { store } from './store/store';
 
 
