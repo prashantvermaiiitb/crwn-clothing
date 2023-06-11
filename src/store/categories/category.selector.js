@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
  * Input selector gives us parameters that will be used to determine what our output should be.
  */
 
-// todo Step:1 Creating initial Selector gives us slice of reducer we need
+// todo Step:1 Creating initial Selector gives us slice of reducer we need further
 const selectCategoryReducer = (state) => state.categories;
 
 // todo Step:2 Next we need to work on slice of Reducer returned above
