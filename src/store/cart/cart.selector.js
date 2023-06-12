@@ -4,26 +4,27 @@ import { createSelector } from "reselect";
 const cartItemsReducer = (state) => state.cart;
 
 // Memoising cart items
-export const cartSelector = createSelector(
+export const selectCartItems = createSelector(
     [cartItemsReducer],
-    (cart) => {
-        return { cartItems: cart.cartItems, isCartOpen: cart.isCartOpen }
-    }
+    (cart) => cart.cartItems
 )
 
+
+// Memoising cart items
+export const selectIsCartOpen = createSelector(
+    [cartItemsReducer],
+    (cart) => cart.isCartOpen
+)
+
+
 // Memoise Cart Count basis cartItems
-export const cartItemCount = createSelector(
-    [cartSelector],
-    (cart) => {
-        if (cart.cartItems.length) {
-            return cart.cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-        } 
-        return 0;
-    }
+export const selectCartItemCount = createSelector(
+    [selectCartItems],
+    (cartItems) => cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0)
 );
 
 // Memoise Cart Total Count basis cartItems
-export const cartItemTotal = createSelector(
-    [cartSelector],
-    (cart) => cart.cartItems.reduce((total, cartItem) => total + cartItem.quantity * cartItem.price, 0)
+export const selectCartItemTotal = createSelector(
+    [selectCartItems],
+    (cartItems) => cartItems.reduce((total, cartItem) => total + cartItem.quantity * cartItem.price, 0)
 );

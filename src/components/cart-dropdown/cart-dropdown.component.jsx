@@ -5,11 +5,12 @@ import './cart-dropdown.styles.scss';
 
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { cartSelector } from '../../store/cart/cart.selector';
+import { selectCartItems } from '../../store/cart/cart.selector';
 
 const CartDropdown = () => {
-    const { cartItems } = useSelector(cartSelector);
+    const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
+    
     const goToCheckoutHandler = () => {
         navigate('/checkout')
     }

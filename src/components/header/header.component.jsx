@@ -8,7 +8,7 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { CartIcon } from '../cart-icon/cart-icon.component';
 
 import { useSelector } from 'react-redux';
-import { cartSelector } from '../../store/cart/cart.selector';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { currentUserSelector } from '../../store/user/user.selector.js';
 import { HeaderContainer, LogoContainer, Options, OptionsContainer } from './header.styles';
 // const PrintUserContext = () => {
@@ -24,7 +24,7 @@ const Header = () => {
      * useSelector will directly work on the state .. what about mapstattoprops ???
      */
     const currentUser = useSelector(currentUserSelector);
-    const { isCartOpen } = useSelector(cartSelector);
+    const isCartOpen = useSelector(selectIsCartOpen);
 
     return (
         <>
