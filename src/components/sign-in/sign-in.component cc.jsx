@@ -17,7 +17,7 @@ const SignIn = () => {
         event.preventDefault();
         try {
             const { user } = await customSignInWithEmailAndPassword(auth, email, password);
-            console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user);
+            // console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user);
             setEmail('');
             setPassword('');
             // setCurrentUser(user);
@@ -59,7 +59,7 @@ class SignInCC extends Component {
         const { email, password } = this.state;
         try {
             const { user } = await customSignInWithEmailAndPassword(auth, email, password);
-            console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user)
+            // console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user)
             this.setState({ email: '', password: '' });
             // const { setCurrentUser } = this.context;
             // setCurrentUser(user);

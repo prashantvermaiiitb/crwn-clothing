@@ -1,25 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-// import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { auth } from '../../firebase/firebase.utils';
-import { CartContext } from '../context/cart.context';
 
-import { CartIcon } from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { CartIcon } from '../cart-icon/cart-icon.component';
 
-import { HeaderContainer, LogoContainer, OptionsContainer, Options } from './header.styles';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../store/user/user.selector.js'
+import { cartSelector } from '../../store/cart/cart.selector';
+import { currentUserSelector } from '../../store/user/user.selector.js';
+import { HeaderContainer, LogoContainer, Options, OptionsContainer } from './header.styles';
 // const PrintUserContext = () => {
 //     const { currentUser } = useContext(UserContext);
 //     console.log("🚀 ~ file: header.component.jsx:11 ~ PrintUserContext ~ currentUser:", currentUser)
 //     return <h1>Reading User from Context:{!!currentUser && currentUser.email}</h1>
 // }
 
-// !todo we should see how we can use context here rather than passing currentUser from the App.js
-// const Header = ({ currentUser }) => {
 const Header = () => {
     /**
      * selector function updates whenever the state object changes.
@@ -27,7 +24,7 @@ const Header = () => {
      * useSelector will directly work on the state .. what about mapstattoprops ???
      */
     const currentUser = useSelector(currentUserSelector);
-    const { isCartOpen } = useContext(CartContext);
+    const { isCartOpen } = useSelector(cartSelector);
 
     return (
         <>

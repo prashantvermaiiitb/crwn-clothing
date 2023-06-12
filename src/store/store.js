@@ -1,15 +1,16 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import { logger } from 'redux-logger';
 import { rootReducer } from "./root-reducer";
-import { myCustomLogger } from "./middlewares/custom-logger";
+// import { myCustomLogger } from "./middlewares/custom-logger";
 
 /**
  * Array of middlewares that we want to run
  * Actions are receieved by middleware
  * DISPATCH --> Actions --> MIDDLEWARES ---> Reducer(s)
  */
-// const middlewares = [logger, myCustomLogger];
-const middlewares = [myCustomLogger];
+const middlewares = [logger];
+// ! writing custom logger as below..
+// const middlewares = [myCustomLogger];
 /****
  * Compose the middlewares together 
  * applyMiddleware is going to have comma separated values..

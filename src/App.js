@@ -25,7 +25,7 @@ const App = () => {
         createUserProfileDocument(user);
       }
       // we will be getting either user object or null 
-      console.log("🚀 ~ file: user.context.jsx:28 ~ unsubscribe ~ user:", user)
+      // console.log("🚀 ~ file: user.context.jsx:28 ~ unsubscribe ~ user:", user)
       dispatch(setCurrentUser(user));
     });
     return unsubscribe;

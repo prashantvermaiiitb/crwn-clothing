@@ -13,10 +13,6 @@ const ShopPage = () => {
     useEffect(() => {
         const getCategoriesMap = async () => {
             const categoriesArray = await getCategoriesAndDocuments();
-            // ! now this will be simple categories array   
-            console.log("🚀 ~ file: shop.component.jsx:16 ~ categoriesArray ~ categoriesArray:", categoriesArray)
-            
-            // dispatch(setCategoriesMap(categoriesMap));
             dispatch(setCategories(categoriesArray));
         }
         getCategoriesMap();

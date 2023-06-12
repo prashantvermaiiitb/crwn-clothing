@@ -1,16 +1,25 @@
-import { useContext } from 'react';
 // import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
-import { CartContext } from '../context/cart.context';
-import './cart-icon.styles.scss'
-import { CartIconContainer, ShoppingIcon, ItemCount } from './cart-icon.styles'
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsCartOpen } from '../../store/cart/cart.action';
+import { cartItemCount, cartSelector } from '../../store/cart/cart.selector';
+import { CartIconContainer, ItemCount, ShoppingIcon } from './cart-icon.styles';
+import './cart-icon.styles.scss';
 
+/**
+ * Cart Icon present on Top right corner.
+ * @returns 
+ */
 export const CartIcon = () => {
-    const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext);
-    const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen);
+    const dispatch = useDispatch();
+
+    const { isCartOpen } = useSelector(cartSelector); // iscart Open boolean flag
+    const cartCount = useSelector(cartItemCount); // Cart item count for selected Items
+
+    const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));// dispatching toggle action
+
     return (
         <CartIconContainer>
             <ShoppingIcon onClick={toggleIsCartOpen} />
-            {/*<span className='item-count'>{cartItems.reduce((accumlator, cartItem) => { return accumlator + cartItem.quantity }, 0)}</span>*/}
             <ItemCount>{cartCount}</ItemCount>
         </CartIconContainer>
 
