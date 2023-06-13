@@ -1,21 +1,19 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import './shop.style.scss';
+import { fetchCategoriesAsync } from '../../store/categories/category.action';
 import CategoriesPreview from '../categories-preview/categories-preview.component';
 import Category from '../category/category.component';
-import { useEffect } from 'react';
-import { getCategoriesAndDocuments } from '../../firebase/firebase.utils';
-import { setCategories } from '../../store/categories/category.action';
-import { useDispatch } from 'react-redux';
+import './shop.style.scss';
 
 const ShopPage = () => {
     const dispatch = useDispatch();
     // setting up the categories
     useEffect(() => {
-        const getCategoriesMap = async () => {
-            const categoriesArray = await getCategoriesAndDocuments();
-            dispatch(setCategories(categoriesArray));
-        }
-        getCategoriesMap();
+        // todo this async behaviour is good candidate for moving in REDUX thunk
+        // after update this function is not at all async anymore this is regular dispatch function.
+        // moved out synchronous and loading code into a thunk instead.
+        dispatch(fetchCategoriesAsync());
     }, [dispatch]);
     return (
         <Routes>

@@ -38,3 +38,9 @@ export const getCategoriesMap = createSelector(
         }, {});
     }
 );
+/**
+ * Extract isLoading from the categories slice from reducer.
+ */
+export const selectCategoriesIsLoading = createSelector(
+    [selectCategoryReducer], (categoriesSlice) => categoriesSlice.isLoading
+);

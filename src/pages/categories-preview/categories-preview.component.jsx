@@ -2,14 +2,17 @@ import React from 'react';
 import CategoryPreview from '../../components/category-preview/category-preview.component';
 import { Fragment } from 'react/cjs/react.production.min';
 import { useSelector } from 'react-redux';
-import { getCategoriesMap } from '../../store/categories/category.selector';
+import { getCategoriesMap, selectCategoriesIsLoading } from '../../store/categories/category.selector';
+import Spinner from '../../components/spinner/spinner.component';
 
 const CategoriesPreview = () => {
     // todo extracting categories Map from the state
     const categoriesMap = useSelector(getCategoriesMap);
-    const categoryCount = Object.keys(categoriesMap).length;
+    // const categoryCount = Object.keys(categoriesMap).length;
+    const isLoading = useSelector(selectCategoriesIsLoading)
+    console.log("🚀 ~ file: categories-preview.component.jsx:13 ~ CategoriesPreview ~ isLoading:", isLoading)
     return (
-        categoryCount === 0 ? <p>loading data....</p> :
+        isLoading ? <Spinner /> :
             (<Fragment>
                 {
                     Object.keys(categoriesMap).map(title => {

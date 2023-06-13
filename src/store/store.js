@@ -6,11 +6,14 @@ import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import thunk from 'redux-thunk';
+
 // Configuration to tell redux-persist what we need to store.
 const persistConfig = {
     key: 'root', // name of the key in localstorage will be persist:root
     storage,
-    blacklist: ['user']// blacklist any reducer value , these will be the name of the reducer keys
+    blacklist: ['user'],// blacklist any reducer value , these will be the name of the reducer keys
+    whitelist: ['cart']// only want to store cart in local storage
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -20,7 +23,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
  * Actions are receieved by middleware
  * DISPATCH --> Actions --> MIDDLEWARES ---> Reducer(s)
  */
-const middlewares = [process.env.NODE_ENV === 'development' && logger].filter(Boolean);
+const middlewares = [process.env.NODE_ENV === 'development' && logger, thunk].filter(Boolean);
 // ! writing custom logger as below..
 // const middlewares = [myCustomLogger];
 /****
