@@ -1,12 +1,16 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import { logger } from 'redux-logger';
 import { rootReducer } from "./root-reducer";
-// import { myCustomLogger } from "./middlewares/custom-logger";
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import thunk from 'redux-thunk';
+// ! You can only use 1 either saga or Thunk
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from "./root-saga";
+
+// todo Step:1 create saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 // Configuration to tell redux-persist what we need to store.
 const persistConfig = {
@@ -22,8 +26,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
  * Array of middlewares that we want to run
  * Actions are receieved by middleware
  * DISPATCH --> Actions --> MIDDLEWARES ---> Reducer(s)
+ * todo: saga added in middleware list
  */
-const middlewares = [process.env.NODE_ENV === 'development' && logger, thunk].filter(Boolean);
+const middlewares = [process.env.NODE_ENV === 'development' && logger, sagaMiddleware].filter(Boolean);
 // ! writing custom logger as below..
 // const middlewares = [myCustomLogger];
 /****
@@ -40,5 +45,13 @@ const composeEnhancers = composeEnhancer(applyMiddleware(...middlewares));
  */
 // export const store = createStore(rootReducer, undefined, composeEnhancers);
 export const store = createStore(persistedReducer, undefined, composeEnhancers);
+
+/**
+ * after the store has been instantiated with saga middleware
+ * we are going to run sagamiddleware with rootSaga.
+ * Saga are run after the reducers are updated with triggered action.
+ * todo Step 3 Run saga middleware.
+ */
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

@@ -31,7 +31,7 @@ export const getCategoriesMap = createSelector(
     [selectCategories],
     (categories) => {
         return categories.reduce((acc, category) => {
-            console.log('******** USE selector for Categories Called *****');
+            // console.log('******** USE selector for Categories Called *****');
             const { title, items } = category; // regain data in the document
             acc[title.toLowerCase()] = items;
             return acc;

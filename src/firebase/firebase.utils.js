@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, collection, writeBatch, setDoc, query, getDocs } from "firebase/firestore";
 // import { getFirestore, doc, getDoc, addDoc, collection, writeBatch, setDoc, query, getDocs } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 
 //https://www.geeksforgeeks.org/firebase-integration-with-web/
@@ -31,11 +31,9 @@ provider.setCustomParameters({
 export const db = getFirestore(); // getting connection to DB
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-    // console.log("🚀 ~ file: firebase.utils.js ~ line 29 ~ createUserProfileDocument ~ userAuth", userAuth)
     if (!userAuth) return;
     const docRef = doc(db, 'users', userAuth.uid); //connecting to users collection & then document => document reference
     const snapshot = await getDoc(docRef);
-    // console.log("🚀 ~ file: firebase.utils.js ~ line 32 ~ createUserProfileDocument ~ snapshot", snapshot)
 
     if (!snapshot.exists()) {
         const { displayName: name, email } = userAuth;
@@ -49,20 +47,23 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
         }
     }
-    // console.log("🚀 ~ file: firebase.utils.js ~ line 48 ~ createUserProfileDocument ~ docRef", docRef)
-    return docRef;
-    // getDoc(docRef).then(response => console.log(response));
+    // return docRef; // so that we can get the data and store this inside the reducer.
+    return snapshot; // so that we can get the data and store this inside the reducer.
 }
 
+export const signInWithGoogle2 = async () => {
+    const { user } = await signInWithPopup(auth, provider);
+    // console.log("🚀 ~ file: firebase.utils.js:60 ~ .then ~ user:", user);
+    return user;
+}
 export const signInWithGoogle = () => signInWithPopup(auth, provider)
     .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        console.log("🚀 ~ file: firebase.utils.js:58 ~ .then ~ token:", token)
+        // console.log("🚀 ~ file: firebase.utils.js:58 ~ .then ~ token:", token)
         // The signed-in user info.
         const user = result.user;
-        console.log("🚀 ~ file: firebase.utils.js:60 ~ .then ~ user:", user);
         // todo we have not set the user in the context ???     
         // ...
     }).catch((error) => {
@@ -144,3 +145,21 @@ export const getCategoriesAndDocuments = async () => {
     // return the category map once that is created.
     return categoryMap;
 };
+
+/**
+ * To convert observable listener into a promise based call
+ */
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => { // callback triggered on change
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject // will run when there is an Error 
+        );
+    })
+}
+
+export const signOutUser = () => signOut(auth);

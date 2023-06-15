@@ -5,27 +5,38 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import { auth, createUserProfileDocument, customCreateUserWithEmailAndPassword } from '../../firebase/firebase.utils';
 
+
+
 import './sign-up.styles.scss';
+import { useDispatch } from 'react-redux';
+import { emailSignInStart, signUpStart } from '../../store/user/user.action';
 const SignUp = () => {
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const dispatch = useDispatch();
 
     const handleSubmit = async event => {
+
+
         event.preventDefault();
 
         if (password !== confirmPassword) {
             alert('Passwords don\'t match');
             return;
         }
+
+
+
         try {
-            const { user } = await customCreateUserWithEmailAndPassword(auth, email, password); // will return userAuth object which is on key user.
-            // we will be needing displayName, hence we need to keep this.
-            await createUserProfileDocument(user, {
-                name: displayName
-            });
-            // clear our form
+            dispatch(signUpStart(email, password, displayName));
+            // const { user } = await customCreateUserWithEmailAndPassword(auth, email, password); // will return userAuth object which is on key user.
+            // // we will be needing displayName, hence we need to keep this.
+            // await createUserProfileDocument(user, {
+            //     name: displayName
+            // });;
+            // // clear our form
             setDisplayName('')
             setEmail('')
             setPassword('')

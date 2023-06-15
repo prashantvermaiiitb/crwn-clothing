@@ -2,13 +2,13 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import { auth } from '../../firebase/firebase.utils';
 
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { CartIcon } from '../cart-icon/cart-icon.component';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
+import { signOutStart } from '../../store/user/user.action';
 import { currentUserSelector } from '../../store/user/user.selector.js';
 import { HeaderContainer, LogoContainer, Options, OptionsContainer } from './header.styles';
 // const PrintUserContext = () => {
@@ -25,6 +25,7 @@ const Header = () => {
      */
     const currentUser = useSelector(currentUserSelector);
     const isCartOpen = useSelector(selectIsCartOpen);
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -37,7 +38,8 @@ const Header = () => {
                     <Options to="/shop">SHOP</Options>
                     <Options to="/contact">CONTACT</Options>
                     {
-                        currentUser ? <Options as='span' onClick={() => auth.signOut()}>SIGN OUT</Options> : <Options to="/signin">SIGN IN</Options>
+                        currentUser ? <Options as='span' onClick={() => dispatch(signOutStart())}>SIGN OUT</Options> : <Options to="/signin">SIGN IN</Options>
+                        // currentUser ? <Options as='span' onClick={() => auth.signOut()}>SIGN OUT</Options> : <Options to="/signin">SIGN IN</Options>
                     }
                     <CartIcon />
                 </OptionsContainer>

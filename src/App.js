@@ -7,9 +7,9 @@ import Header from './components/header/header.component';
 import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import './App.css';
 import Checkout from './pages/checkout/checkout-component';
-import { createUserProfileDocument, onAuthenticationStatusChange } from './firebase/firebase.utils';
+import { createUserProfileDocument, getCurrentUser, onAuthenticationStatusChange } from './firebase/firebase.utils';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './store/user/user.action';
+import { checkUserSession, setCurrentUser } from './store/user/user.action';
 
 // https://github.com/sass/node-sass/issues/2536
 //npm rebuild node-sass 
@@ -19,20 +19,21 @@ const App = () => {
   // todo to avoid linkting error, there will not be any re-rendering
   // todo there will only be single dispatch
   const dispatch = useDispatch();
-  useEffect(() => {
-    const unsubscribe = onAuthenticationStatusChange((user) => {
-      if (user) {
-        createUserProfileDocument(user);
-      }
-      // we will be getting either user object or null 
-      // console.log("🚀 ~ file: user.context.jsx:28 ~ unsubscribe ~ user:", user)
-      dispatch(setCurrentUser(user));
-    });
-    return unsubscribe;
-  }, [dispatch]);
-
   
+  useEffect(() => {
+    // !Code earlier to movement to REDUX SAGA
+    // const unsubscribe = onAuthenticationStatusChange((user) => {
+    //   if (user) {
+    //     createUserProfileDocument(user);
+    //   }
+    //   // we will be getting either user object or null 
+    //   // console.log("🚀 ~ file: user.context.jsx:28 ~ unsubscribe ~ user:", user)
+    //   dispatch(setCurrentUser(user));
+    // });
+    // return unsubscribe;
 
+    dispatch(checkUserSession());
+  }, [dispatch]);
 
   return (
     <div className="App">
