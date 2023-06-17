@@ -8,13 +8,17 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 // import { persistor, store } from './store/store';
 import { store } from './store/redux-toolkit-store';
-
+// todo we have to register our app first with stripe to make payments, similar to Provider
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe-utils';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
         <BrowserRouter>
+        <Elements stripe={stripePromise}>
           <App />
+        </Elements>
         </BrowserRouter>
     </Provider>
   </React.StrictMode>,

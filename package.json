@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "dotenv": "^16.3.0",
     "firebase": "^9.6.6",
     "node-sass": "^7.0.1",
     "react": "^17.0.2",
@@ -20,6 +21,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "reselect": "^4.1.8",
+    "stripe": "^12.9.0",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
   },

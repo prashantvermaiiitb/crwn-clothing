@@ -27,11 +27,11 @@ const getCustomButton = (buttonType = BUTTON_TYPE_CLASSES.base) => {
     );
 }
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
     const CustomButton = getCustomButton(buttonType);
     return (
-        <CustomButton {...otherProps}>
-            {children}
+        <CustomButton disabled={isLoading} {...otherProps}>
+            {isLoading ? 'payment in progress' : children}
         </CustomButton>
     );
 };
