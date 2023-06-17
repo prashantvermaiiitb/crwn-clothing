@@ -22,7 +22,9 @@ exports.handler = async (event) => {
         // Now making call to the stripe end point for the payment
         const paymentIntent = await stripe.paymentIntents.create({
             amount, // amount paid
-            currency: 'usd', // currency in which paid
+            // ! todo this has to be INR because USD is not allowed in india
+            // currency: 'usd', // currency in which paid
+            currency: 'inr', // currency in which paid
             payment_method_types: ['card'] // type of payment options 
         });
 

@@ -1,4 +1,4 @@
-import { BaseButton, GoogleButton, InvertedButton } from "./button.styles";
+import { BaseButton, ButtonSpinner, GoogleButton, InvertedButton } from "./button.styles";
 // ! not needed buttons are changed to styled component 
 // import "./button.styles.scss";
 /**
@@ -31,7 +31,7 @@ const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
     const CustomButton = getCustomButton(buttonType);
     return (
         <CustomButton disabled={isLoading} {...otherProps}>
-            {isLoading ? 'payment in progress' : children}
+            {isLoading ? <ButtonSpinner /> : children}
         </CustomButton>
     );
 };
