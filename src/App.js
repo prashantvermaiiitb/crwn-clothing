@@ -8,8 +8,8 @@ import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-a
 import './App.css';
 import Checkout from './pages/checkout/checkout-component';
 import { createUserProfileDocument, onAuthenticationStatusChange } from './firebase/firebase.utils';
-import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './store/user/user.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from './store/user/user.reducer';
 
 // https://github.com/sass/node-sass/issues/2536
 //npm rebuild node-sass 
@@ -19,6 +19,15 @@ const App = () => {
   // todo to avoid linkting error, there will not be any re-rendering
   // todo there will only be single dispatch
   const dispatch = useDispatch();
+
+
+  /**
+   * this will show error because we are modifying the test array in state
+   * Immutiblity has to be there you cannot modify same array.
+   */
+  // const testarray  = useSelector((state)=> state.test);
+  // testarray.sort();
+
   useEffect(() => {
     const unsubscribe = onAuthenticationStatusChange((user) => {
       if (user) {
@@ -26,12 +35,19 @@ const App = () => {
       }
       // we will be getting either user object or null 
       // console.log("🚀 ~ file: user.context.jsx:28 ~ unsubscribe ~ user:", user)
+      /**
+       * ! we are still dispathching the actions from component
+       * Here if we enable serializable m/w then we have to make proper corrections in User Object
+       * Like this one 
+          const pickedUser = user && (({ email, accessToken }) => ({ email, accessToken }))(user);
+       * 
+       */
       dispatch(setCurrentUser(user));
     });
     return unsubscribe;
   }, [dispatch]);
 
-  
+
 
 
   return (
