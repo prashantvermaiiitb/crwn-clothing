@@ -1,10 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
-import { FormContainer, PaymentButton, PaymentFormContainer } from "./payment-form.styles";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCartItemTotal } from "../../store/cart/cart.selector";
 import { currentUserSelector } from "../../store/user/user.selector";
-import { useState } from "react";
+import { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import { FormContainer, PaymentButton, PaymentFormContainer } from "./payment-form.styles";
 
 const PaymentForm = () => {
     const stripe = useStripe(); // to make the request in format that stripes needs it to be
@@ -46,7 +46,7 @@ const PaymentForm = () => {
                 billing_details: {
                     // ! displayname is not set everytime so using email
                     // name: currentUser ? currentUser.displayName : 'Guest' 
-                    name: currentUser ? currentUser.email : 'Guest' 
+                    name: currentUser ? currentUser.email : 'Guest'
                     // you can add more information if you want.
                 }
             }

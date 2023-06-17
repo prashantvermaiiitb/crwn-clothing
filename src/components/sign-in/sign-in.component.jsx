@@ -24,7 +24,7 @@ const SignIn = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { user } = await customSignInWithEmailAndPassword(auth, email, password);
+            // const { user } = await customSignInWithEmailAndPassword(auth, email, password);
             // console.log("🚀 ~ file: sign-in.component.jsx:23 ~ SignIn ~ handleSubmit= ~ user:", user);
             setEmail('');
             setPassword('');
