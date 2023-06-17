@@ -5,7 +5,7 @@ import FormInput from '../form-input/form-input.component';
 import './sign-in.styles.scss';
 // import { UserContext } from '../context/user.context'
 
-import { auth, signInWithGoogle, customSignInWithEmailAndPassword } from '../../firebase/firebase.utils';
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 // const defaultFormFields = {
 //     email: '', password: ''
