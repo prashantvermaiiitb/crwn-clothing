@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 import { CategoriesState } from "./category.reducer";
 import { CategoryMap } from "./category.types";
+import { RootState } from "../store";
 
 /**
  * We have to create multiple input & output selectors.
@@ -13,7 +14,8 @@ import { CategoryMap } from "./category.types";
  * @param state
  * @returns
  */
-const selectCategoryReducer = (state): CategoriesState => state.categories;
+const selectCategoryReducer = (state: RootState): CategoriesState =>
+  state.categories;
 
 // todo Step:2 Next we need to work on slice of Reducer returned above
 // todo will take 2 params

@@ -2,6 +2,7 @@ import {
   Action,
   ActionWithPayload,
   createAction,
+  withMatcher,
 } from "../../utils/actionCreator";
 import { CATEGORIES_ACTION_TYPES, Category } from "./category.types";
 
@@ -50,13 +51,14 @@ export type categoryAction =
 // };
 
 // /**
-//  * This function is a type checker, basically this is saying that passed in entity is of UNION types either 
+// Intersection means merging 2 types together.
+//  * This function is a type checker, basically this is saying that passed in entity is of UNION types either
 //  * Alien or Human. In function body we are writing to typecast the entity to Human and then tried calling speak on that
 //  * without typecasting speak would not be there on JS object (if done so will give error), hence we have to do a type cast.
-//  * This function is checking that passed in entity is of Human type 'entity is Human'. This is TYPE PREDICATE and ensures that 
+//  * This function is checking that passed in entity is of Human type 'entity is Human'. This is TYPE PREDICATE and ensures that
 //  * entity i received must be Human.
-//  * @param entity 
-//  * @returns 
+//  * @param entity
+//  * @returns
 //  */
 // function isHuman(entity: Human | Alien): entity is Human {
 //   return (entity as Human).speak !== undefined;
@@ -75,24 +77,32 @@ export const setCategories = (categories: Category[]) => {
  * todo : these are normal actions defined ???
  * This will trigger Saga.
  * @returns
+ * 
+ * Each of these are now matchable creators and they all have extendible .match() method.
  */
-export const fetchCategoriesStart = (): FetchCategoriesStart =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
+export const fetchCategoriesStart = withMatcher(
+  (): FetchCategoriesStart =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
+);
 
 /**
  * Fetch categories success
  * @param {*} categories
  * @returns
+ * Each of these are now matchable creators and they all have extendible .match() method.
  */
-export const fetchCategoriesSuccess = (
-  categories: Category[]
-): FetchCategoriesSuccess =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categories);
+export const fetchCategoriesSuccess = withMatcher(
+  (categories: Category[]): FetchCategoriesSuccess =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categories)
+);
 
 /**
  * When categories failed to fetch
  * @param {*} error
  * @returns
+ * Each of these are now matchable creators and they all have extendible .match() method.
  */
-export const fetchCategoriesFailed = (error: Error): fetchCategoriesFailed =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
+export const fetchCategoriesFailed = withMatcher(
+  (error: Error): fetchCategoriesFailed =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
+);
