@@ -20,7 +20,7 @@ export type FetchCategoriesSuccess = ActionWithPayload<
  * This is a ACTION TYPE, Fetch categories failed action, this is for giving back action with payload
  * and taking CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED and Error as input.
  */
-export type fetchCategoriesFailed = ActionWithPayload<
+export type FetchCategoriesFailed = ActionWithPayload<
   CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED,
   Error
 >;
@@ -32,7 +32,7 @@ export type fetchCategoriesFailed = ActionWithPayload<
 export type categoryAction =
   | FetchCategoriesStart
   | FetchCategoriesSuccess
-  | fetchCategoriesFailed;
+  | FetchCategoriesFailed;
 
 /**
  * ! we will be doing extra operations in action creators so that they will be able to do type checking
@@ -103,6 +103,6 @@ export const fetchCategoriesSuccess = withMatcher(
  * Each of these are now matchable creators and they all have extendible .match() method.
  */
 export const fetchCategoriesFailed = withMatcher(
-  (error: Error): fetchCategoriesFailed =>
+  (error: Error): FetchCategoriesFailed =>
     createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
 );

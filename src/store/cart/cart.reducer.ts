@@ -25,14 +25,14 @@ export const cartReducer = (
   state = CART_INITIAL_STATE,
   action: AnyAction
 ): CartState => {
-  if (setIsCartOpen.match(action.type)) {
+  if (setIsCartOpen.match(action)) {
     return {
       ...state,
       isCartOpen: action.payload,
     };
   }
 
-  if (setCartItems.match(action.type)) {
+  if (setCartItems.match(action)) {
     return {
       ...state,
       cartItems: action.payload,

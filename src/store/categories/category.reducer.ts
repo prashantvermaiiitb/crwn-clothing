@@ -77,11 +77,11 @@ export const categoriesReducer = (
   }
 
   if (fetchCategoriesSuccess.match(action)) {
-    return { ...state, isLoading: false, error: action.payload }; //getting it directly from the payload becuase it's not there in some action
+    return { ...state, isLoading: false, categories: action.payload }; //getting it directly from the payload becuase it's not there in some action
   }
 
   if (fetchCategoriesFailed.match(action)) {
-    return { ...state, isLoading: false, categories: action.payload }; //getting it directly from the payload becuase it's not there in some action
+    return { ...state, isLoading: false, error: action.payload }; //getting it directly from the payload becuase it's not there in some action
   }
 
   return state;

@@ -9,7 +9,7 @@ import { CartIcon } from '../cart-icon/cart-icon.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { signOutStart } from '../../store/user/user.action';
-import { currentUserSelector } from '../../store/user/user.selector.js';
+import { currentUserSelector } from '../../store/user/user.selector';
 import { HeaderContainer, LogoContainer, Options, OptionsContainer } from './header.styles';
 // const PrintUserContext = () => {
 //     const { currentUser } = useContext(UserContext);

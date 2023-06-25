@@ -1,11 +1,11 @@
 import { AnyAction } from "redux";
 import { UserData } from "../../firebase/firebase.utils";
 import {
-    signInFailed,
-    signInSuccess,
-    signOutFailed,
-    signOutSuccess,
-    signUpFailed,
+  signInFailed,
+  signInSuccess,
+  signOutFailed,
+  signOutSuccess,
+  signUpFailed,
 } from "./user.action";
 
 export type UserState = {
@@ -16,7 +16,7 @@ export type UserState = {
 
 // declaring initial state for this context as below
 /**
- * readonly will prevent usage of state like 
+ * readonly will prevent usage of state like
  * INITIAL_STATE.currentUser= {name:'abc',... } inside the reducer
  */
 const INITIAL_STATE: UserState = {
@@ -31,17 +31,17 @@ const INITIAL_STATE: UserState = {
 // ! every reducer will get every action and we have to return the default state when we are not planning
 // ! to listen to that passed in action.
 export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
-  if (signInSuccess.match(action.type)) {
+  if (signInSuccess.match(action)) {
     return { ...state, currentUser: action.payload };
   }
-  if (signOutSuccess.match(action.type)) {
+  if (signOutSuccess.match(action)) {
     return { ...state, currentUser: null };
   }
 
   if (
-    signInFailed.match(action.type) ||
-    signUpFailed.match(action.type) ||
-    signOutFailed.match(action.type)
+    signInFailed.match(action) ||
+    signUpFailed.match(action) ||
+    signOutFailed.match(action)
   ) {
     return { ...state, error: action.payload };
   }
