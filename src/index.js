@@ -7,6 +7,8 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { persistor, store } from './store/store';
+import { stripePromise } from './utils/stripe.utils';
+import { Elements } from '@stripe/react-stripe-js';
 
 
 ReactDOM.render(
@@ -14,7 +16,9 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={'loading the data from persist Store....'}>
         <BrowserRouter>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </BrowserRouter>
       </PersistGate>
     </Provider>
