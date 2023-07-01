@@ -64,6 +64,7 @@ export const createUserProfileDocument = async (
   additionalData = {} as AdditionalData
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
+
   const docRef = doc(db, "users", userAuth.uid); //connecting to users collection & then document => document reference
   const snapshot = await getDoc(docRef);
 
