@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCartItemTotal } from "../../store/cart/cart.selector";
 import { currentUserSelector } from "../../store/user/user.selector";
@@ -9,6 +9,12 @@ import {
   PaymentButton,
   PaymentFormContainer,
 } from "./payment-form.styles";
+import { StripeCardElement } from "@stripe/stripe-js";
+const ifValidCardElement = (
+  card: StripeCardElement | null
+): card is StripeCardElement => {
+  return card !== null;
+};
 
 const PaymentForm = () => {
   const stripe = useStripe(); // to make the request in format that stripes needs it to be
@@ -21,7 +27,7 @@ const PaymentForm = () => {
    * This will not be a regular form submission.
    * @param {*} e
    */
-  const paymentHandler = async (e) => {
+  const paymentHandler = async (e: FormEvent) => {
     e.preventDefault();
 
     // To work with Stripe we need to import hooks from stripe.
@@ -52,9 +58,16 @@ const PaymentForm = () => {
       client_secret
     );
 
+    const CarDetails = elements.getElement(CardElement);
+
+    // if (CarDetails === null) {
+    if (!ifValidCardElement(CarDetails)) {
+      return;
+    }
+
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
-        card: elements.getElement(CardElement),
+        card: CarDetails, //elements.getElement(CardElement),
         billing_details: {
           // ! displayname is not set everytime so using email
           // name: currentUser ? currentUser.displayName : 'Guest'

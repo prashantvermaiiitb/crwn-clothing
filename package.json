@@ -28,7 +28,7 @@
     "redux-saga": "^1.2.3",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
-    "stripe": "^12.11.0",
+    "stripe": "^12.11.0", 
     "styled-components": "^5.3.11",
     "typed-redux-saga": "^1.5.0",
     "typescript": "^5.1.3",
