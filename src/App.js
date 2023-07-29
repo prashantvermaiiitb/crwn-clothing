@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
 // import './App.css';
-import Checkout from './pages/checkout/checkout-component';
-import { createUserProfileDocument, onAuthenticationStatusChange } from './firebase/firebase.utils';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './store/user/user.action';
+import { createUserProfileDocument, onAuthenticationStatusChange } from './firebase/firebase.utils';
 import { GlobalStyle } from './global.styles';
+import Checkout from './pages/checkout/checkout-component';
+import { setCurrentUser } from './store/user/user.action';
 
 // https://github.com/sass/node-sass/issues/2536
 //npm rebuild node-sass 
