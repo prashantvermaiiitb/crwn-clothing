@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Header from './components/header/header.component';
-import SignInAndSignUpComponent from './components/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-// import './App.css';
+import { Suspense } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { createUserProfileDocument, onAuthenticationStatusChange } from './firebase/firebase.utils';
 import { GlobalStyle } from './global.styles';
-import Checkout from './pages/checkout/checkout-component';
 import { setCurrentUser } from './store/user/user.action';
+
+/**
+ * lazy loading the components
+ */
+const Header = lazy(() => import('./components/header/header.component'));
+const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
+const ShopPage = lazy(() => import('./pages/shop/shop.component'));
+const SignInAndSignUpComponent = lazy(() => import('./components/sign-in-and-sign-up/sign-in-and-sign-up.component'));
+const Checkout = lazy(() => import('./pages/checkout/checkout-component'));
 
 // https://github.com/sass/node-sass/issues/2536
 //npm rebuild node-sass 
@@ -32,21 +37,23 @@ const App = () => {
     return unsubscribe;
   }, [dispatch]);
 
-  
+
 
 
   return (
-    <div className="App">
-      <GlobalStyle />
-      <Routes>
-        <Route path='/' element={<Header />}>
-          <Route index element={<HomePage />} />
-          <Route path='shop/*' element={<ShopPage />} />
-          <Route path='signin' element={<SignInAndSignUpComponent />} />
-          <Route path='checkout' element={<Checkout />} />
-        </Route>
-      </Routes>
-    </div>
+    <Suspense fallback={() => { return (<p>Loading....</p>) }}>
+      <div className="App">
+        <GlobalStyle />
+        <Routes>
+          <Route path='/' element={<Header />}>
+            <Route index element={<HomePage />} />
+            <Route path='shop/*' element={<ShopPage />} />
+            <Route path='signin' element={<SignInAndSignUpComponent />} />
+            <Route path='checkout' element={<Checkout />} />
+          </Route>
+        </Routes>
+      </div>
+    </Suspense>
   );
 }
 
