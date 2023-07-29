@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { selectCartItems } from '../../store/cart/cart.selector';
 
 
-
+// useMemo examples : https://www.w3schools.com/react/react_usememo.asp 
 const sleep = (ms, temp) => {
     let start = new Date().getTime();
     console.log("🚀 ~ file: product-card.component.jsx:9 ~ sleep ~ start:", start)
