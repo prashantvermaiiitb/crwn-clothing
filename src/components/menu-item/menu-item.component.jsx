@@ -1,10 +1,11 @@
+import { useCallback } from 'react';
 import { MenuItemContainer, BackgroundImage, Content } from './menu-item.styles';
 // import './menu-item.styles.scss'
 import { useNavigate } from "react-router-dom"
 
 const MenuItem = ({ title, subtitle, imageUrl, size, route }) => {
     const navigate = useNavigate();
-    const onNavigateHandler = e => navigate(route);
+    const onNavigateHandler = useCallback(e => navigate(route), []);
     return (
         // <div className={`menu-item${size ? ' ' + size : ''}`}>
         <MenuItemContainer size={size || ''}>

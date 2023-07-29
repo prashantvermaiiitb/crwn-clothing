@@ -20,6 +20,8 @@ const Checkout = lazy(() => import('./pages/checkout/checkout-component'));
 // https://github.com/sass/node-sass/issues/2536
 //npm rebuild node-sass 
 
+const Loader = () => { return (<p>Loading....</p>) }
+
 const App = () => {
   // todo this object will never change even after that also we have to pass this in [] in useEffect 
   // todo to avoid linkting error, there will not be any re-rendering
@@ -41,7 +43,7 @@ const App = () => {
 
 
   return (
-    <Suspense fallback={() => { return (<p>Loading....</p>) }}>
+    <Suspense fallback={<Loader/>}>
       <div className="App">
         <GlobalStyle />
         <Routes>
